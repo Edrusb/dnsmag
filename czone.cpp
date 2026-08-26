@@ -75,7 +75,7 @@ void czone::del_record(const string & name)
 	asso.erase(it);
     }
     else
-	throw erreur(tools_printf("the name %S does currently not exist in zone %S", &name, &zone));
+	throw erreur(tools_printf("the name %S does not currently exist in zone %S", &name, &zone));
 }
 
 string czone::generate_forward_records() const
