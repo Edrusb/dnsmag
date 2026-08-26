@@ -91,8 +91,6 @@ void database::delete_zone(const string & name)
 
     if(resp == "y")
     {
-	zones.erase(it);
-	generate_named_conf();
 	if(unlink(get_forward_zone_filename(name).c_str()) != 0)
 	    cout << tools_printf("Failed removing forward zone file %s: %s\n",
 				 get_forward_zone_filename(name).c_str(),
@@ -101,6 +99,8 @@ void database::delete_zone(const string & name)
 	    cout << tools_printf("Failed removing reverse zone file %s: %s\n",
 				 get_forward_zone_filename(name).c_str(),
 				 strerror(errno));
+	zones.erase(it);
+	generate_named_conf();
     }
     else
 	cout << "OK, database not modified" << endl;
