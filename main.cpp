@@ -234,7 +234,7 @@ void update_named()
     if(system("rndc reload") == 0)
 	cout << "bind process has reloaded his configuration" << endl;
     else
-	cout << "Failed to have bind reloading its configuration: " << strerror(errno) << endl;
+	cout << "Failed to have bind reloading its configuration" << endl;
 }
 
 void display_base_info(const char** env)
