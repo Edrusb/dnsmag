@@ -27,7 +27,7 @@ But first, you guessed, the zone <code>demo1</code> must have been created given
 > \#
 >
 
-Last, to properly interact with the named process, the location of the zones files and of the name of the named.conf-like file to generate has to be
+Last, to properly interact with the named process, the location of the zones files and the name of the named.conf-like file to generate has to be
 provided when initializing dnsmag. The initialization also requires some information used to setup the SOA records expected in each zone file.
 All the information provided at initialization is stored in a database file, where will also be stored the different zones and for each
 zone the name-IP associations:
