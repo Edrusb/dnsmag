@@ -231,7 +231,7 @@ const char *get_from_env(const char** env, const char* clef)
 void update_named()
 {
 	// triggering the named process to reload its configuration
-    if(system("rndc reload") == 0)
+    if(system("sudo rndc reload") == 0)
 	cout << "bind process has reloaded his configuration" << endl;
     else
 	cout << "Failed to have bind reloading its configuration" << endl;
