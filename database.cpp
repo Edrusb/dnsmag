@@ -219,7 +219,7 @@ void database::generate_forward_file(const string & zone) const
     ret += tools_printf("             %d  ; Expire\n", expire);
     ret += tools_printf("             %d) ; Neg cache TTL\n", nttl);
     ret += tools_printf("\n");
-    ret += tools_printf("          IN    NS     %S\n", &ns);
+    ret += tools_printf("          IN    NS     %S.\n", &ns);
     ret += tools_printf("\n");
     ret += it->second.generate_forward_records();
 
@@ -252,7 +252,7 @@ void database::generate_reverse_file(const string & zone) const
     ret += tools_printf("             %d  ; Expire\n", expire);
     ret += tools_printf("             %d) ; Neg cache TTL\n", nttl);
     ret += tools_printf("\n");
-    ret += tools_printf("          IN    NS     %S\n", &ns);
+    ret += tools_printf("          IN    NS     %S.\n", &ns);
     ret += tools_printf("\n");
     ret += it->second.generate_reverse_records();
 
