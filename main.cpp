@@ -231,7 +231,10 @@ const char *get_from_env(const char** env, const char* clef)
 void update_named()
 {
 	// triggering the named process to reload its configuration
-    system("rnd reload");
+    if(system("rndc reload") == 0)
+	cout << "bind process has reloaded his configuration" << endl;
+    else
+	cout << "Failed to have bind reloading its configuration: " << strerror(errno) << endl;
 }
 
 void display_base_info(const char** env)
