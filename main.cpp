@@ -35,15 +35,17 @@ extern "C"
 #include "tools.hpp"
 #include "erreurs.hpp"
 
+#define VERSION "1.0.0"
+
 constexpr const char* database_config_path = "/usr/local/etc/dnsmag.json";
 constexpr const char* database_environment_var = "DNSMAG_BASE_PATH";
 
 void usage(const string & argv0, const char** env);
-
 void save_database(const database & base, const string & filename);
-
 void update_named();
 void display_base_info(const char** env);
+void show_version();
+
 
     /// returns value of the provided variable (=clef) if it exist, nullptr if not.
 const char *get_from_env(const char** env, const char *clef);
@@ -184,6 +186,8 @@ int main(int argc, char* argv[], const char** env)
 
 		cout << endl << endl;
 	    }
+	    else if(argc == 2 && verbe == "version")
+		show_version();
 	    else
 		usage(argv[0], env);
 	}
@@ -206,6 +210,7 @@ void usage(const string & argv0, const char** env)
     cout << tools_printf("       %S show     <zone-name>\n", argv0);
     cout << tools_printf("       %S init     <parent-zone-name> <named.conf-file> <zone-dir-path> <namesever-name>  <hostmaster>\n", argv0);
     cout << tools_printf("       %S help\n", argv0);
+    cout << tools_printf("       %S version\n", argv0);
     cout << endl;
     display_base_info(env);
     cout << endl;
@@ -275,4 +280,20 @@ void display_base_info(const char** env)
 	cout << tools_printf("Databse located at %s, can be modified using environment variable %s\n",
 			     database_config_path,
 			     database_environment_var);
+}
+
+void show_version()
+{
+    cout << endl;
+    cout << tools_printf("dnsmag - Copyright (C) 2026 Denis Corbin\n");
+    cout << endl;
+    cout << tools_printf("dnsmag version %s\n", VERSION);
+    cout << tools_printf("Supported database format up to version %u\n", database::get_db_format_version());
+    cout << endl;
+    cout << tools_printf("This program comes with ABSOLUTELY NO WARRANTY;\n");
+    cout << tools_printf("For details see the GNU General License v3 terms\n");
+    cout << tools_printf("at https://www.gnu.org/licenses/. This is free\n");
+    cout << tools_printf("software, and you are welcome to redistribute it\n");
+    cout << tools_printf("under certain conditions described in this License\n");
+    cout << endl;
 }
