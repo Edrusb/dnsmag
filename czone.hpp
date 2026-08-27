@@ -55,6 +55,9 @@ public:
 	/// returns the assigned IP to the given name
     string add_record(const string & name);
 
+	/// add and record a new IP-name pair, but throw an exception if IP is already used
+    void add_record(const string & name, unsigned int last_byte);
+
 	/// delete a record from this zone
     void del_record(const string & name);
 

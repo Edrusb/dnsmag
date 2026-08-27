@@ -122,6 +122,21 @@ string database::add_record(const string & zone,
     return ret;
 }
 
+void database::add_record(const string & zone,
+			  const string & name,
+			  unsigned int last_byte)
+{
+    map<string, czone>::iterator it = zones.find(zone);
+    string ret;
+
+    if(it == zones.end())
+	throw erreur(tools_printf("Unknown zone %S", &zone));
+
+    it->second.add_record(name, last_byte);
+    generate_forward_file(zone);
+    generate_reverse_file(zone);
+}
+
 void database::del_record(const string & zone,
 			  const string & name)
 {

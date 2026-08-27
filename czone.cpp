@@ -48,21 +48,40 @@ void czone::clear()
 
 string czone::add_record(const string & name)
 {
-    map<string, unsigned int>::iterator it = asso.find(name);
     unsigned int ip_byte;
-
-    if(it != asso.end())
-	throw erreur(tools_printf("Name %S already used in the %S zone", &name, &zone));
 
     if(free_slots.empty())
 	throw erreur(tools_printf("Zone %S is full, no more IP available", &zone));
 
     ip_byte = *(free_slots.begin()); // using the smallest available IP
-    free_slots.erase(ip_byte);
-
-    asso[name] = ip_byte;
+    add_record(name, ip_byte);
 
     return tools_printf("%S.%d", subnet, ip_byte);
+}
+
+void czone::add_record(const string & name, unsigned int last_byte)
+{
+    map<string, unsigned int>::const_iterator it = asso.find(name);
+
+    if(it != asso.end())
+	throw erreur(tools_printf("Name %S already used in the zone %S with IP = %S.%d",
+				  &name,
+				  &zone,
+				  &subnet,
+				  it->second));
+
+    it = tools_find_by_val(asso, last_byte);
+
+    if(it != asso.end())
+	throw erreur(tools_printf("IP %S.%d is already used by %S.%S",
+				  &subnet,
+				  last_byte,
+				  it->first,
+				  zone));
+
+	// updating the internal datastructure with this new record
+    free_slots.erase(last_byte);
+    asso[name] = last_byte;
 }
 
 void czone::del_record(const string & name)

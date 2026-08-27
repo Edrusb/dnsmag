@@ -72,6 +72,13 @@ public:
     string add_record(const string & zone,
 		      const string & name);
 
+	/// create a new association beteween name and IP with last byte is provided
+
+	/// \note if the name or the IP is already used, an exception is thrown
+    void add_record(const string & zone,
+		    const string & name,
+		    unsigned int last_byte);
+
 	/// deletes the provided record name from the designated zone
     void del_record(const string & zone,
 		    const string & name);

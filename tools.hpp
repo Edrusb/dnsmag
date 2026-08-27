@@ -42,7 +42,7 @@ using namespace std;
     /// .
 extern string tools_printf(const char *format, ...);
 
-template <class A, class B> typename map<A, B>::const_iterator find_by_val(
+template <class A, class B> typename map<A, B>::const_iterator tools_find_by_val(
     const map<A, B> & carte,
     const B & val)
 {

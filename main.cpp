@@ -123,6 +123,25 @@ int main(int argc, char* argv[], const char** env)
 				     argv[2],
 				     &ip) << endl;
 	    }
+	    else if(argc == 5 && verbe == "add-rec")
+	    {
+		unsigned int last_byte;
+
+		try
+		{
+		    last_byte = stoi(string(argv[4]));
+		}
+		catch(...)
+		{
+		    throw erreur(tools_printf("last byte argument is not a integer: %s\n", argv[4]));
+		}
+
+		if(last_byte < 1 || last_byte > 254)
+		    throw erreur(tools_printf("last byte should be in the range [1..254], while it was read as %u",
+					      last_byte));
+
+		base.add_record(argv[2], argv[3], last_byte);
+	    }
 	    else if(argc == 4 && verbe == "del-rec")
 	    {
 		base.del_record(argv[2], argv[3]);
@@ -174,7 +193,7 @@ void usage(const string & argv0, const char** env)
     cout << endl;
     cout << tools_printf("usage: %S add-zone <zone-name> <subnet>\n", argv0);
     cout << tools_printf("       %S del-zone <zone-name>\n", argv0);
-    cout << tools_printf("       %S add-rec  <zone-name> <record-name>\n", argv0);
+    cout << tools_printf("       %S add-rec  <zone-name> <record-name> [<last IP byte>]\n", argv0);
     cout << tools_printf("       %S del-rec  <zone-name> <record-name>\n", argv0);
     cout << tools_printf("       %S list\n", argv0);
     cout << tools_printf("       %S show     <zone-name>\n", argv0);
