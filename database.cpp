@@ -261,8 +261,20 @@ void database::generate_reverse_file(const string & zone) const
 
 void database::load_json(const json & source)
 {
+    unsigned int reading_version = 0;
 
     zones.clear();
+
+    try
+    {
+	reading_version = source.at(LABEL_VERSION);
+    }
+    catch(json::exception & e)
+    {
+	    // before first release the version field was not present
+	    // in the json database, though this is the #1 version
+	reading_version = 1;
+    }
 
     try
     {
@@ -299,6 +311,7 @@ json database::save_json() const
     json ret;
     json tableau;
 
+    ret.emplace(LABEL_VERSION, db_version);
     ret.emplace(LABEL_PARENT_ZONE, parent_zone);
     ret.emplace(LABEL_NAMED_CONF, named_conf);
     ret.emplace(LABEL_ZONE_DIR, zone_dir);
