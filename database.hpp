@@ -110,6 +110,9 @@ private:
     string get_forward_zone_filename(const string & zone) const;
     string get_reverse_zone_filename(const string & zone) const;
 
+    static constexpr const unsigned int db_version = 1;
+
+    static constexpr const char* LABEL_VERSION = "db_version";
     static constexpr const char* LABEL_PARENT_ZONE = "parent-zone";
     static constexpr const char* LABEL_NAMED_CONF = "named.conf";
     static constexpr const char* LABEL_ZONE_DIR = "zones-path";
