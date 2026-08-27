@@ -169,7 +169,7 @@ string database::show_zone_subnet(const string & zone) const
     if(it == zones.end())
 	throw erreur(tools_printf("Unknown zone %S", &zone));
 
-    return it->second.get_subnet_prefix() + ".0";
+    return it->second.get_subnet_prefix();
 }
 
 deque<string> database::show_zone_listing(const string & zone) const

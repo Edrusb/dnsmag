@@ -86,7 +86,10 @@ public:
 	/// provide the list existing zones
     deque<string> list_zones() const;
 
-	/// return the subnet used by the zone
+	/// return the subnet part of the IP network used by the zone
+
+	/// \example: if the provided subnet was "172.16.0.0" as /24 is
+	/// only supported netmask, "172.16.0" will be returned here.
     string show_zone_subnet(const string & zone) const;
 
 	/// provide the list of recorded names in that zone

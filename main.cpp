@@ -141,6 +141,13 @@ int main(int argc, char* argv[], const char** env)
 					      last_byte));
 
 		base.add_record(argv[2], argv[3], last_byte);
+		save_database(base, base_path);
+		update_named();
+		cout << tools_printf("The record %s in zone %s has been associated to %s.%u",
+				     argv[3],
+				     argv[2],
+				     base.show_zone_subnet(argv[2]).c_str(),
+				     last_byte) << endl;
 	    }
 	    else if(argc == 4 && verbe == "del-rec")
 	    {
@@ -164,7 +171,7 @@ int main(int argc, char* argv[], const char** env)
 	    else if(argc == 3 && verbe == "show")
 	    {
 		deque<string> content = base.show_zone_listing(argv[2]);
-		string subnet = base.show_zone_subnet(argv[2]);
+		string subnet = base.show_zone_subnet(argv[2]) + ".0";
 
 		cout << tools_printf("Information on zone: %s\n", argv[2]);
 		cout << tools_printf(" - subnet used: %S\n", &subnet);
